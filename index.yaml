@@ -9,7 +9,7 @@ entries:
           url: https://docs.cloudbees.com/docs/cloudbees-ci/latest/
     apiVersion: v2
     appVersion: 2.332.1.5
-    created: "2022-03-25T09:47:59.007974827Z"
+    created: "2022-03-25T09:50:11.787541893Z"
     dependencies:
     - condition: ingress-nginx.Enabled
       name: ingress-nginx
@@ -20,7 +20,7 @@ entries:
       repository: https://charts.cloudbees.com/public/cloudbees
       version: 2.2.1
     description: Enterprise Continuous Integration with Jenkins
-    digest: 77ab02bac5d8c72be4703cec00f4ab9da7c2e4abf751717d35bd82c6c9e15dc8
+    digest: a910d3cc8c935d6ecb4371609ce722fd5177e02c2eb8636b30da481c7db2a180
     home: https://www.cloudbees.com/products/continuous-integration
     icon: https://images.ctfassets.net/vtn4rfaw6n2j/7xprMMXARXDBuVxW4y8XfV/349fff91035050e3f2a8ff37bc0615b5/cloudbees-core-logo_header.svg
     keywords:
@@ -30,4 +30,4 @@ entries:
     urls:
     - https://vgervasi.github.io/helm-charts/cloudbees-core-3.41.6+8b4162f4eda9.tgz
     version: 3.41.6+8b4162f4eda9
-generated: "2022-03-25T09:47:58.996890454Z"
+generated: "2022-03-25T09:50:11.775934704Z"
