@@ -21,7 +21,7 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{- define "mm.longname" -}}
-CloudBees CI - Managed Master - {{ include "mm.longname-suffix" .}}
+CloudBees CI - Managed Controller - {{ include "mm.longname-suffix" .}}
 {{- end -}}
 
 {{/*
@@ -501,7 +501,7 @@ status:
 
 {{- define "ingress.check" -}}
 {{- if not (.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress") }}
-  {{ fail "\n\nERROR: Kubernetes 1.19 or later is required to use Ingress in networking.k8s.io/v1" }}
+  {{ fail "\n\nERROR: Kubernetes 1.19 or later is required to use Ingress in networking.k8s.io/v1\nIf you are using Helm template add \"--api-versions networking.k8s.io/v1/Ingress\" to the command" }}
 {{- end -}}
 {{- end -}}
 

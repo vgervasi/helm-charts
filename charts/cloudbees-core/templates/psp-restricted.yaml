@@ -21,7 +21,7 @@ spec:
     - 'downwardAPI'
     - 'emptyDir'
     - 'projected'
-    # persistentVolumes are required for CJOC and Managed Master StatefulSets
+    # persistentVolumes are required for CJOC and Managed Controller StatefulSets
     - 'persistentVolumeClaim'
     - 'secret'
   hostNetwork: false
