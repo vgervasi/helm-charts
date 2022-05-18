@@ -8,6 +8,35 @@ entries:
         - name: Documentation
           url: https://docs.cloudbees.com/docs/cloudbees-ci/latest/
     apiVersion: v2
+    appVersion: 2.332.3.4
+    created: "2022-05-18T07:31:00.035107108Z"
+    dependencies:
+    - condition: ingress-nginx.Enabled
+      name: ingress-nginx
+      repository: https://kubernetes.github.io/ingress-nginx
+      version: 4.0.13
+    - condition: sidecarinjector.Enabled
+      name: cloudbees-sidecar-injector
+      repository: https://charts.cloudbees.com/public/cloudbees
+      version: 2.2.1
+    description: Enterprise Continuous Integration with Jenkins
+    digest: f98d3a6905b9678590aac6ba9ba4f8ecc67bd4bcf75cd5a466071c236ed6c428
+    home: https://www.cloudbees.com/products/continuous-integration
+    icon: https://images.ctfassets.net/vtn4rfaw6n2j/7xprMMXARXDBuVxW4y8XfV/349fff91035050e3f2a8ff37bc0615b5/cloudbees-core-logo_header.svg
+    keywords:
+    - cloudbees
+    - jenkins
+    name: cloudbees-core
+    urls:
+    - https://vgervasi.github.io/helm-charts/cloudbees-core-3.43.3+fbed12c3e4b0.tgz
+    version: 3.43.3+fbed12c3e4b0
+  - annotations:
+      artifacthub.io/links: |
+        - name: Product overview
+          url: https://www.cloudbees.com/products/continuous-integration
+        - name: Documentation
+          url: https://docs.cloudbees.com/docs/cloudbees-ci/latest/
+    apiVersion: v2
     appVersion: 2.332.3.2
     created: "2022-05-04T14:49:57.74278058Z"
     dependencies:
@@ -117,4 +146,4 @@ entries:
     urls:
     - https://vgervasi.github.io/helm-charts/cloudbees-core-3.41.6+8b4162f4eda9.tgz
     version: 3.41.6+8b4162f4eda9
-generated: "2022-05-04T14:49:57.732827249Z"
+generated: "2022-05-18T07:31:00.023861186Z"
