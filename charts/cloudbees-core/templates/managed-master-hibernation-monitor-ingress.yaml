@@ -1,5 +1,4 @@
 {{- if and .Values.Hibernation.Enabled (include "cloudbees-core.needs-ingress" .) -}}
-{{- include "ingress.check" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
