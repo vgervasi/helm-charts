@@ -23,3 +23,6 @@ keywords:
 - jenkins
 name: cloudbees-core
 version: 3.43.3+fbed12c3e4b0
+maintainers:
+  - name: nemo
+    email: nemo@nemo.com

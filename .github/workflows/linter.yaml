@@ -1,0 +1,64 @@
+name: Linter
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        k8s:
+          - v1.21.12
+          - v1.22.9
+          - v1.23.6
+          - v1.24.1
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/setup-helm@v2.1
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: helm - add repos
+        run: |
+          helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm repo add cloudbees https://charts.cloudbees.com/public/cloudbees
+      - name: chart-testing - install
+        uses: helm/chart-testing-action@v2.2.1
+      - name: chart-testing - lint
+        run: ct lint --print-config --all
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.3.0
+        with:
+          node_image: "kindest/node:${{ matrix.k8s }}"
+          kubectl_version: "${{ matrix.k8s }}"
+      - name: chart-testing - install
+        run: ct install --print-config --all
+
+  kubeval:
+    runs-on: ubuntu-latest
+    needs:
+      - linter
+    strategy:
+      matrix:
+        k8s:
+          - v1.21.12
+          - v1.22.9
+          - v1.23.6
+          - v1.24.1
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run kubeval
+        env:
+          KUBERNETES_VER: ${{ matrix.k8s }}
+        run: .github/kubeval.sh
+
+  pluto:
+    runs-on: ubuntu-latest
+    needs:
+      - linter
+    steps:
+      - uses: actions/checkout@v3
+      - uses: FairwindsOps/pluto/github-action@master
+      - run: pluto detect-files --directory charts
