@@ -5,7 +5,7 @@ annotations:
     - name: Documentation
       url: https://docs.cloudbees.com/docs/cloudbees-ci/latest/
 apiVersion: v2
-appVersion: 2.332.3.4
+appVersion: 2.346.1.4
 dependencies:
 - condition: ingress-nginx.Enabled
   name: ingress-nginx
@@ -22,7 +22,7 @@ keywords:
 - cloudbees
 - jenkins
 name: cloudbees-core
-version: 3.43.3+fbed12c3e4b0
 maintainers:
   - name: nemo
     email: nemo@nemo.com
+version: 3.44.2+a040d13d70cf

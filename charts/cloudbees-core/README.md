@@ -1,6 +1,6 @@
 # cloudbees-core
 
-![Version: 3.43.3](https://img.shields.io/badge/Version-3.43.3-informational?style=flat-square) ![AppVersion: 2.332.3.4](https://img.shields.io/badge/AppVersion-2.332.3.4-informational?style=flat-square)
+![Version: 3.44.2](https://img.shields.io/badge/Version-3.44.2-informational?style=flat-square) ![AppVersion: 2.346.1.4](https://img.shields.io/badge/AppVersion-2.346.1.4-informational?style=flat-square)
 
 [CloudBees CI](https://www.cloudbees.com/products/continuous-integration) is the continuous integration platform architected for the enterprise. It provides:
 
@@ -110,7 +110,7 @@ CloudBees provides complete and more detailed installation and operation documen
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | Agents.Enabled | bool | `true` | Enable to create agent resources (service account, role) |
-| Agents.Image.dockerImage | string | `"cloudbees/cloudbees-core-agent:2.332.3.4"` | Used to override the default docker image used for agents |
+| Agents.Image.dockerImage | string | `"cloudbees/cloudbees-core-agent:2.346.1.4"` | Used to override the default docker image used for agents |
 | Agents.ImagePullSecrets | string | `nil` | Name of image pull secret to pull private Docker images or an array of image pull secrets |
 | Agents.SeparateNamespace.Create | bool | `false` | If true, the second namespace will be created when installing this chart. Otherwise, the existing namespace should be labeled with `cloudbees.com/role: agents` in order for network policies to work. |
 | Agents.SeparateNamespace.Enabled | bool | `false` | If enabled, agents resources will be created in a separate namespace as well as bindings allowing masters to schedule them. |
@@ -122,7 +122,7 @@ CloudBees provides complete and more detailed installation and operation documen
 | Hibernation.NodeSelector | object | `{}` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector |
 | Hibernation.Tolerations | list | `[]` | Specify tolerations for the Hibernation Monitor pod. See [documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) |
 | Master.Enabled | bool | `true` | Whether to create the resources required to schedule controllers. |
-| Master.Image.dockerImage | string | `"cloudbees/cloudbees-core-mm:2.332.3.4"` | Used to override the default docker image |
+| Master.Image.dockerImage | string | `"cloudbees/cloudbees-core-mm:2.346.1.4"` | Used to override the default docker image |
 | Master.JavaOpts | string | `nil` | Additional Java options to pass to managed controllers. For example, setting up a JMX port |
 | Master.OperationsCenterNamespace | string | `nil` | When deploying Controller resources, this grants an Operations Center deployed in another namespace the right to deploy controllers |
 | NetworkPolicy.Enabled | bool | `false` | Enable only if the cluster supports it. Read the [documentation](https://kubernetes.io/docs/concepts/services-networking/network-policies/) to understand what this is about. |
@@ -144,11 +144,11 @@ CloudBees provides complete and more detailed installation and operation documen
 | OperationsCenter.HealthProbeLivenessFailureThreshold | int | `12` | Threshold for liveness failure |
 | OperationsCenter.HealthProbes | bool | `true` | Enable Kubernetes Liveness and Readiness Probes |
 | OperationsCenter.HostName | string | `nil` | The hostname used to access Operations Center through the ingress controller. |
-| OperationsCenter.Image.dockerImage | string | `"cloudbees/cloudbees-cloud-core-oc:2.332.3.4"` | Container image to use for Operations Center |
+| OperationsCenter.Image.dockerImage | string | `"cloudbees/cloudbees-cloud-core-oc:2.346.1.4"` | Container image to use for Operations Center |
 | OperationsCenter.Image.dockerPullPolicy | string | `nil` | https://kubernetes.io/docs/concepts/containers/images/#updating-images |
 | OperationsCenter.ImagePullSecrets | string | `nil` | Name of image pull secret to pull private Docker images or an array of image pull secrets |
 | OperationsCenter.Ingress.Annotations | object | `{"kubernetes.io/tls-acme":"false"}` | annotations to put on Ingress object |
-| OperationsCenter.Ingress.Class | string | `"nginx"` | Ingress class to use for OC and MM ingresses Should be set to the same value as nginx-ingress.controller.ingressClass if enabled |
+| OperationsCenter.Ingress.Class | string | `"nginx"` | Ingress class to use for OC and MM ingresses Should be set to the same value as ingress-nginx.controller.ingressClassResource.name if enabled |
 | OperationsCenter.Ingress.tls.Enable | bool | `false` | Set this to true in order to enable TLS on the ingress record |
 | OperationsCenter.Ingress.tls.SecretName | string | `nil` | The name of the secret containing the certificate and private key to terminate TLS for the ingress |
 | OperationsCenter.JavaOpts | string | `nil` | Additional java options to pass to the Operations Center |
@@ -183,10 +183,10 @@ CloudBees provides complete and more detailed installation and operation documen
 | PodSecurityPolicy.Annotations | object | `{}` | Additional annotations to put on the PodSecurityPolicy, e.g. AppArmor/Seccomp settings |
 | PodSecurityPolicy.Enabled | bool | `false` | Enables [Pod Security Policies](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) support Enable only if the cluster supports it. |
 | Subdomain | bool | `false` | Whether to use a DNS subdomain for each controller. |
-| ingress-nginx.Enabled | bool | `false` | Installs the [ingress-nginx](https://github.com/kubernetes/ingress-nginx/tree/master/charts/ingress-nginx) controller (optional). Enable this section if you don't have an existing installation of ingress-nginx controller Note: use `beta.kubernetes.io/os` when deploying on Kubernetes versions below 1.16 |
+| ingress-nginx.Enabled | bool | `false` | Installs the [ingress-nginx](https://github.com/kubernetes/ingress-nginx/tree/master/charts/ingress-nginx) controller (optional). Enable this section if you don't have an existing installation of ingress-nginx controller |
 | ingress-nginx.controller.admissionWebhooks.patch.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |
 | ingress-nginx.controller.allowSnippetAnnotations | bool | `false` |  |
-| ingress-nginx.controller.ingressClass | string | `"nginx"` |  |
+| ingress-nginx.controller.ingressClassResource.name | string | `"nginx"` |  |
 | ingress-nginx.controller.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |
 | ingress-nginx.controller.service.externalTrafficPolicy | string | `"Local"` |  |
 | ingress-nginx.defaultBackend.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |

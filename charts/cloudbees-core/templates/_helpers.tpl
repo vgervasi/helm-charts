@@ -211,7 +211,9 @@ nginx.ingress.kubernetes.io/ssl-redirect: "{{ .Values.OperationsCenter.Ingress.t
 alb.ingress.kubernetes.io/healthcheck-path: {{ include "oc.contextpath" . }}/login
 {{- end }}
 {{- if not (include "cloudbees-core.is-openshift" .) }}
+{{- if not (eq (include "oc.contextpath" .) "") }}
 nginx.ingress.kubernetes.io/app-root: {{ include "ingress.root-redirect" . | quote }}
+{{- end }}
 # "413 Request Entity Too Large" uploading plugins, increase client_max_body_size
 nginx.ingress.kubernetes.io/proxy-body-size: 50m
 nginx.ingress.kubernetes.io/proxy-request-buffering: "off"

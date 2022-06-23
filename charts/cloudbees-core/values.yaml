@@ -7,12 +7,12 @@ Subdomain: false
 
 # ingress-nginx.Enabled -- Installs the [ingress-nginx](https://github.com/kubernetes/ingress-nginx/tree/master/charts/ingress-nginx) controller (optional).
 # Enable this section if you don't have an existing installation of ingress-nginx controller
-# Note: use `beta.kubernetes.io/os` when deploying on Kubernetes versions below 1.16
 ingress-nginx:
   Enabled: false
   controller:
     allowSnippetAnnotations: false  # mitigation for CVE-2021-25742
-    ingressClass: nginx
+    ingressClassResource:
+      name: nginx
     nodeSelector:
       kubernetes.io/os: linux
     service:
@@ -42,7 +42,7 @@ OperationsCenter:
   # Operations Center docker image
   Image:
     # OperationsCenter.Image.dockerImage -- Container image to use for Operations Center
-    dockerImage: cloudbees/cloudbees-cloud-core-oc:2.332.3.4
+    dockerImage: cloudbees/cloudbees-cloud-core-oc:2.346.1.4
     # OperationsCenter.Image.dockerPullPolicy -- https://kubernetes.io/docs/concepts/containers/images/#updating-images
     dockerPullPolicy: null
 
@@ -175,7 +175,7 @@ OperationsCenter:
 
   Ingress:
     # OperationsCenter.Ingress.Class -- Ingress class to use for OC and MM ingresses
-    # Should be set to the same value as nginx-ingress.controller.ingressClass if enabled
+    # Should be set to the same value as ingress-nginx.controller.ingressClassResource.name if enabled
     Class: nginx
     # OperationsCenter.Ingress.Annotations -- annotations to put on Ingress object
     Annotations:
@@ -259,7 +259,7 @@ Master:
   # Docker image inserted in Operations Center automatically
   Image:
     # Master.Image.dockerImage -- Used to override the default docker image
-    dockerImage: cloudbees/cloudbees-core-mm:2.332.3.4
+    dockerImage: cloudbees/cloudbees-core-mm:2.346.1.4
   # Master.JavaOpts -- Additional Java options to pass to managed controllers. For example, setting up a JMX port
   JavaOpts: null
 
@@ -276,7 +276,7 @@ Agents:
     Create: false
   Image:
     # Agents.Image.dockerImage -- Used to override the default docker image used for agents
-    dockerImage: cloudbees/cloudbees-core-agent:2.332.3.4
+    dockerImage: cloudbees/cloudbees-core-agent:2.346.1.4
   # Image pull secrets
   # Enable this option when using a private registry.
   # https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-by-providing-credentials-on-the-command-line
