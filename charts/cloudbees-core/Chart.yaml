@@ -25,4 +25,4 @@ name: cloudbees-core
 maintainers:
   - name: nemo
     email: nemo@nemo.com
-version: 3.44.2+a040d13d70cf
+version: 3.44.2

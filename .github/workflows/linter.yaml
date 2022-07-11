@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  linter:
+  ct:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -36,10 +36,28 @@ jobs:
       - name: chart-testing - install
         run: ct install --print-config --all
 
+  datree:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/setup-helm@v3.0
+      - name: helm - add repos
+        run: |
+          helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm repo add cloudbees https://charts.cloudbees.com/public/cloudbees
+      - name: helm - install datree
+        run: |
+          curl https://get.datree.io | /bin/bash
+          helm plugin install https://github.com/datreeio/helm-datree
+          helm plugin update datree
+      - name: datree
+        run: |
+          helm datree test --verbose --no-record charts/cloudbees-core
+
   kubeval:
     runs-on: ubuntu-latest
     needs:
-      - linter
+      - ct
     strategy:
       matrix:
         k8s:
@@ -57,7 +75,7 @@ jobs:
   pluto:
     runs-on: ubuntu-latest
     needs:
-      - linter
+      - ct
     steps:
       - uses: actions/checkout@v3
       - uses: FairwindsOps/pluto/github-action@master
