@@ -20,7 +20,7 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - uses: azure/setup-helm@v3.0
+      - uses: azure/setup-helm@v3.1
 
       - name: helm - add repos
         run: |
