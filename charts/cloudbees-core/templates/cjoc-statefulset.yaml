@@ -36,7 +36,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: {{ include "os.label" . }}
+              - key: kubernetes.io/os
                 operator: In
                 values:
                   - linux
@@ -62,9 +62,7 @@ spec:
                       operator: In
                       values:
                         - slave
-      {{- if include "features.enableServiceLinks-available" . }}
       enableServiceLinks: false
-      {{- end }}
       serviceAccountName: {{ .Values.rbac.serviceAccountName }}
       {{- if .Values.OperationsCenter.NodeSelector }}
       nodeSelector:

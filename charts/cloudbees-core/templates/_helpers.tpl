@@ -65,25 +65,7 @@ true
 {{- end -}}
 
 {{- define "cloudbees-core.is-openshift" -}}
-{{- if or (has .Values.OperationsCenter.Platform (list "openshift" "openshift4")) (.Capabilities.APIVersions.Has "route.openshift.io/v1") -}}
-true
-{{- end -}}
-{{- end -}}
-
-{{- define "cloudbees-core.is-openshift-4" -}}
-{{- if or (eq .Values.OperationsCenter.Platform "openshift4") (.Capabilities.APIVersions.Has "ingress.operator.openshift.io/v1") -}}
-true
-{{- end -}}
-{{- end -}}
-
-{{- define "cloudbees-core.not-openshift-4" -}}
-{{- if not (include "cloudbees-core.is-openshift-4" .) -}}
-true
-{{- end -}}
-{{- end -}}
-
-{{- define "cloudbees-core.is-openshift-3" -}}
-{{- if and (include "cloudbees-core.is-openshift" .) (include "cloudbees-core.not-openshift-4" .) -}}
+{{- if or (has .Values.OperationsCenter.Platform (list "openshift4")) (.Capabilities.APIVersions.Has "ingress.operator.openshift.io/v1") -}}
 true
 {{- end -}}
 {{- end -}}
@@ -101,10 +83,6 @@ Return labels, including instance and name.
 {{ include "cloudbees-core.instance-name" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 helm.sh/chart: {{ include "cloudbees-core.chart" . | quote }}
-{{- end -}}
-
-{{- define "os.label" -}}
-{{- if (semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion) }}kubernetes.io/os{{- else -}}beta.kubernetes.io/os{{- end -}}
 {{- end -}}
 
 {{- define "oc.protocol" -}}
@@ -227,7 +205,6 @@ alb.ingress.kubernetes.io/healthcheck-path: /health/live
 {{- end }}
 {{- end }}
 
-
 {{- define "ingress.root-redirect" -}}
 {{ include "oc.contextpath" . }}/teams-check/
 {{- end }}
@@ -264,7 +241,7 @@ Otherwise, default to true, except on Openshift 3 where we default to "" (falsy)
 {{- if eq .Values.rbac.installCluster true -}}
 true
 {{- end -}}
-{{- else if not (include "cloudbees-core.is-openshift-3" .) -}}
+{{- else  -}}
 true
 {{- end -}}
 {{- end -}}
@@ -354,7 +331,7 @@ Plural versions for usage in network policy ingress rules
 {{- end -}}
 
 {{- define "ingress.podSelectors" -}}
-{{- if include "cloudbees-core.is-openshift-4" . -}}
+{{- if include "cloudbees-core.is-openshift" . -}}
 - namespaceSelector:
     matchLabels:
       network.openshift.io/policy-group: ingress
@@ -498,18 +475,6 @@ status:
 {{ default (printf "%s-%s" .Release.Namespace "builds") .Values.Agents.SeparateNamespace.Name }}
 {{- else -}}
 {{ .Release.Namespace }}
-{{- end -}}
-{{- end -}}
-
-{{- define "ingress.check" -}}
-{{- if not (.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress") }}
-  {{ fail "\n\nERROR: Kubernetes 1.19 or later is required to use Ingress in networking.k8s.io/v1\nIf you are using Helm template add \"--api-versions networking.k8s.io/v1/Ingress\" to the command" }}
-{{- end -}}
-{{- end -}}
-
-{{- define "features.enableServiceLinks-available" -}}
-{{- if semverCompare ">=1.13.0-0" .Capabilities.KubeVersion.Version -}}
-true
 {{- end -}}
 {{- end -}}
 

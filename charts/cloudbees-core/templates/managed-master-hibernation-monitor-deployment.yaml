@@ -24,7 +24,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: {{ include "os.label" . }}
+              - key: kubernetes.io/os
                 operator: In
                 values:
                   - linux
@@ -74,9 +74,7 @@ spec:
           limits:
             memory: 250Mi
       serviceAccountName: {{ .Values.rbac.hibernationMonitorServiceAccountName }}
-      {{- if include "features.enableServiceLinks-available" . }}
       enableServiceLinks: false
-      {{- end }}
       {{- if .Values.Hibernation.NodeSelector }}
       nodeSelector:
 {{ toYaml .Values.Hibernation.NodeSelector | indent 8 }}
